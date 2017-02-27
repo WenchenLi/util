@@ -1,4 +1,4 @@
-import constant # you need to define those
+import constant
 import smtplib
 from email import MIMEMultipart
 from email import MIMEText
@@ -21,7 +21,10 @@ def send_mail(fromaddr, toaddr, subject, mail_body, send_mail_server,
     """
     msg = MIMEMultipart.MIMEMultipart()
     msg['From'] = fromaddr
-    msg['To'] = fromaddr
+    msg['To'] = ", ".join(toaddr["To"])
+    msg['CC'] = ", ".join(toaddr["CC"])
+    msg['BCC'] = ", ".join(toaddr["BCC"])
+
     msg['Subject'] = subject
     msg.attach(MIMEText.MIMEText(mail_body, 'plain'))
 
@@ -37,7 +40,7 @@ def send_mail(fromaddr, toaddr, subject, mail_body, send_mail_server,
     server.starttls()
     server.login(fromaddr, constant.ps)
     text = msg.as_string()
-    server.sendmail(fromaddr, toaddr, text)
+    server.sendmail(fromaddr, toaddr["To"], text)
     server.quit()
 
 if __name__=="__main__":
@@ -45,6 +48,6 @@ if __name__=="__main__":
     please define all constants in the constant.py file
     """
     from constant import *
-    send_mail(sender_address, to_address_list, subject, mail_body, send_mail_server,
+    send_mail(sender_address, to_address_dict, subject, mail_body, send_mail_server,
               send_mail_port=send_mail_port, send_file_name_as=send_file_name_as,
               send_file_path=send_file_path)
