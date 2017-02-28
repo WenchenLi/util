@@ -11,6 +11,7 @@ make
 sudo make install
 rm ta-lib-0.4.0-src.tar.gz
 #zipline
-sudo pip install zipline
+#sudo pip install zipline bad version
+sudo -H pip install -e git+https://github.com/quantopian/zipline@master#egg=zipline_master
 # prepare quantopian-quandl databundle
 zipline ingest -b quantopian-quandl
