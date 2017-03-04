@@ -5,6 +5,6 @@ if [ "$pinyin" = "sogou" ];
     download your version then do sudo dpkg -i ~/Downloads/sogoupinyin*.deb; sudo apt -f install"
 else
     echo "installing googlepinyin"
-    sudo apt install fcitx fcitx-googlepinyin
+    sudo apt install fcitx fcitx-googlepinyin -y
 fi
 
